@@ -11,16 +11,15 @@ fun main() = runBlocking{
 
     val job = launch (Dispatchers.IO){
         while (number.get() <= 90){
-            file.appendText(number.get().toString() + " ")
-            delay(50)
-            number.addAndGet(1)
+            file.appendText("$number\t" )
+            plusNumber(number)
         }
     }
-
-    while (number.get() <= 90){
-        print("$number \t")
-        delay(50)
-    }
-
     job.join()
+}
+
+fun plusNumber (number: AtomicInteger): AtomicInteger{
+    print("${number}\t")
+    number.addAndGet(1)
+    return number
 }
